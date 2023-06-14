@@ -26,13 +26,13 @@ class Spaceship(Sprite):
         elif user_input[pygame.K_DOWN]:
             self.move_down()
             
-    def move_left(self):
+    def move_left(self):#arreglar en el solo if
         if self.rect.left > 0:
             self.rect.x -= 10
         else:
              self.rect.x = SCREEN_WIDTH - self.SPACESHIP_WIDTH #si llega a la posion 0 lo devuelve al final de la imagen
         
-    def move_right(self):
+    def move_right(self):#arreglar en en solo if
         if self.rect.right < SCREEN_WIDTH:
             self.rect.x += 10
         else:
