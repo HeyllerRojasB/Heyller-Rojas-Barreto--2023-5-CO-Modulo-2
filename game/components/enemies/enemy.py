@@ -15,7 +15,8 @@ class Enemy(Sprite):
     MOV_X = { 0 : 'left', 1: 'right' }
     
     def __init__(self):
-        self.image = pygame.transform.scale(ENEMY_1, (self.ENEMY_WIDTH, self.ENEMY_HIGHT))
+        self.enemy_type = random.choice([ENEMY_1, ENEMY_2])
+        self.image = pygame.transform.scale(self.enemy_type, (self.ENEMY_WIDTH, self.ENEMY_HIGHT))
         self.rect = self.image.get_rect()
         self.rect.x = self.X_POS_LIST[random.randint(0, 10)]
         self.rect.y = self.Y_POS
@@ -24,7 +25,6 @@ class Enemy(Sprite):
         self.movement_x = self.MOV_X[random.randint(0, 1)]
         self.move_x_for = random.randint(30, 100)
         self.index = 0
-        
         
         
         
@@ -53,3 +53,12 @@ class Enemy(Sprite):
         elif (self.index >= self.move_x_for and self.movement_x) or (self.rect.x <= 10): 
             self.movement_x = 'right'
             self.index = 0
+            
+    def swap_enemy_type(self):   
+        if self.enemy_type == ENEMY_1:
+            self.enemy_type = ENEMY_2
+            self.speed_x = self.SPEED_X * 2
+        elif self.enemy_type == ENEMY_2:
+            self.enemy_type = ENEMY_1
+            self.speed_x = self.SPEED_X
+        self.image = pygame.transform.scale(self.enemy_type, (self.ENEMY_WIDTH, self.ENEMY_HIGHT))

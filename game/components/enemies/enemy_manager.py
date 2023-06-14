@@ -19,5 +19,6 @@ class EnemyManager:
     def add_enemy(self):
         if len(self.enemies) < 1:
             enemy = Enemy()
+            enemy.swap_enemy_type()
             self.enemies.append(enemy)
             
