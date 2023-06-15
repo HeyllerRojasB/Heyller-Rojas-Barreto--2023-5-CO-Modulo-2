@@ -10,7 +10,6 @@ class EnemyManager:
         for enemy in self.enemies:
             enemy.update(self.enemies, game)
             
-    
     def draw(self, screen):
         for enemy in self.enemies:
             enemy.draw(screen)
@@ -20,4 +19,7 @@ class EnemyManager:
             enemy = Enemy()
             enemy.swap_enemy_type()
             self.enemies.append(enemy)
+            
+    def remove_enemy(self, enemy):
+        self.enemies.remove(enemy)
             

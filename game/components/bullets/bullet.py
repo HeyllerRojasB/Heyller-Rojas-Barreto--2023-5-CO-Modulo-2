@@ -10,16 +10,18 @@ class Bullet(Sprite):
     BULLETS = {'player': BULLET_SIZE, 'enemy': BULLET_SIZE_ENEMY }
     SPEED = 20
     
-    def __init__(self, spaceship):
-        self.image = self.BULLETS[spaceship.type]
+    def __init__(self, spaceship, bullet_type):
+        super().__init__()
+        self.image = self.BULLETS[bullet_type]
         self.rect = self.image.get_rect()
         self.rect.center = spaceship.rect.center
         self.owner = spaceship.type
+        self.direction = -1 if self.owner == 'player' else 1
         
     def update(self, bullets):
-        self.rect.y += self.SPEED
+        self.rect.y += self.direction * self.SPEED
         
-        if self.rect.y >= SCREEN_HEIGHT:
+        if self.rect.y <= 0 or self.rect.y >= SCREEN_HEIGHT:
             bullets.remove(self)
             
     def draw(self, screen):
