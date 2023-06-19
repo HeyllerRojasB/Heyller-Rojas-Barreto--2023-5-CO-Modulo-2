@@ -11,6 +11,7 @@ from game.components.power_ups.power_up_manager import PowerUpManager
 class Game:
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
         pygame.display.set_caption(TITLE)
         pygame.display.set_icon(ICON)
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -22,11 +23,18 @@ class Game:
         self.enemy_manager = EnemyManager()
         self.bullet_manager = BulletManager()
         self.player = Spaceship(self.bullet_manager, 'player')
-        self.menu = Menu('press Any Key To Srart ...', self.screen)
+        self.menu = Menu('press Any Key To Srart ...', self.screen) 
         self.score = Counter()
         self.death_count = Counter()
         self.highest_score = Counter()
         self.power_up_manager = PowerUpManager()
+        
+        self.load_music()
+        
+    def load_music(self):
+        pygame.mixer.music.load('game\sound\street-fighter.mp3')
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(0.2)
         
     def execute(self):
         self.running = True
@@ -126,5 +134,5 @@ class Game:
                 self.player.has_power_up = False
                 self.player.power_up_type = DEFAULT_TYPE
                 self.player.set_image()
-                
+    
         

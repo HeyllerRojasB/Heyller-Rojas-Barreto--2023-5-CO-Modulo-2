@@ -2,6 +2,7 @@ import pygame
 import random
 
 from game.components.power_ups.shield import Shield
+from game.components.power_ups.Speed import SpeedUp
 from game.utils.constants import SPACESHIP_SHIELD
 
 
@@ -15,9 +16,13 @@ class PowerUpManager:
         self.duracion = random.randint(3, 5)
     
     def generate_power_up(self):
-        power_up = Shield()
-        self.when_appeats += random.randint(self.MIN_TIME_POWER_UP, self.MAX_TIME_POWER_UP)
-        self.power_ups.append(power_up)
+        shield = Shield()
+        shield.when_appears = pygame.time.get_ticks() + random.randint(self.MIN_TIME_POWER_UP, self.MAX_TIME_POWER_UP)
+        self.power_ups.append(shield)
+    
+        speed_up = SpeedUp()
+        speed_up.when_appears = pygame.time.get_ticks() + random.randint(self.MIN_TIME_POWER_UP, self.MAX_TIME_POWER_UP)
+        self.power_ups.append(speed_up)
         
     def update(self, game):
         current_time = pygame.time.get_ticks()
@@ -35,6 +40,7 @@ class PowerUpManager:
                 game.player.set_image((65, 75), SPACESHIP_SHIELD)
                 self.power_ups.remove(power_up)
                 
+        
     def draw(self, screen):
         for power_up in self.power_ups:
             power_up.draw(screen)

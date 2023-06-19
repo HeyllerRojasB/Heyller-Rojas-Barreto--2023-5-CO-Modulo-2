@@ -22,4 +22,3 @@ class Counter:
         
     def set_count(self, value):
         self.count = value
-        

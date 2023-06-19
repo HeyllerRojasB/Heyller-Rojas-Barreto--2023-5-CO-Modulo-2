@@ -1,3 +1,4 @@
+import os
 import pygame
 import random
 
@@ -9,7 +10,7 @@ from game.utils.constants import ENEMY_1, ENEMY_2, SCREEN_HEIGHT, SCREEN_WIDTH
 class Enemy(Sprite):
     ENEMY_WIDTH = 40
     ENEMY_HIGHT = 60
-    X_POS_LIST = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 700, 800]
+    X_POS_LIST = list(range(50, 1050, 50))
     Y_POS = 20
     SPEED_X = 5
     SPEED_Y = 2
@@ -28,10 +29,15 @@ class Enemy(Sprite):
         self.index = 0
         self.type = 'enemy'
         self.shooting_time = random.randint(30, 50)
+        sound_dir = os.path.join('game', 'sound')
+        sound_file = os.path.join(sound_dir, '11549.mp3')
+        self.shoot_sound = pygame.mixer.Sound(sound_file)
+        self.shoot_sound.set_volume(0.1)
         
     def update(self, ships, game):
         self.rect.y += self.speed_y
         self.shoot(game.bullet_manager)
+        
         
         if self.movement_x == 'left':
             self.rect.x -= self.speed_x
@@ -67,7 +73,8 @@ class Enemy(Sprite):
 
     def shoot(self, bullet_manager):
         current_time = pygame.time.get_ticks()
-        if self.shooting_time <= current_time:
-            bullet = Bullet(self, 'enemy') 
+        if current_time >= self.shooting_time:
+            self.shoot_sound.play()
+            bullet = Bullet(self, 'enemy')
             bullet_manager.add_bullet(bullet)
-            self.shooting_time += random.randint(30, 50)
+            self.shooting_time = current_time + random.randint(500, 900)
