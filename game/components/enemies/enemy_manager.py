@@ -22,4 +22,7 @@ class EnemyManager:
             
     def remove_enemy(self, enemy):
         self.enemies.remove(enemy)
+        
+    def reset(self):
+        self.enemies = []
             

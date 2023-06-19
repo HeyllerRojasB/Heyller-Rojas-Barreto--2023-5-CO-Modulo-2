@@ -52,7 +52,7 @@ class Enemy(Sprite):
         if (self.index >= self.move_x_for and self.movement_x == 'right') or (self.rect.x >= SCREEN_WIDTH - self.ENEMY_WIDTH):
             self.movement_x = 'left'
             self.index = 0
-        elif (self.index >= self.move_x_for and self.movement_x) or (self.rect.x <= 10): 
+        elif (self.index >= self.move_x_for and self.movement_x == 'left') or (self.rect.x <= 10): 
             self.movement_x = 'right'
             self.index = 0
             

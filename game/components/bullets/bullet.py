@@ -16,7 +16,7 @@ class Bullet(Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = spaceship.rect.center
         self.owner = spaceship.type
-        self.direction = -1 if self.owner == 'player' else 1
+        self.direction = -1 if self.owner == 'player' else 1#arreglar la logica en el update
         
     def update(self, bullets):
         self.rect.y += self.direction * self.SPEED
@@ -26,5 +26,3 @@ class Bullet(Sprite):
             
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
-    
-            
